@@ -8,4 +8,6 @@ public interface Player {
    * an Illegal state exception.
    */
     void placePiece(int row, int column) throws  IllegalStateException;
+
+    void passMove();
 }

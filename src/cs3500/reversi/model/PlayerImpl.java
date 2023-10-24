@@ -24,4 +24,9 @@ public class PlayerImpl implements Player{
 
 
   }
+
+  @Override
+  public void passMove(){
+
+  }
 }
