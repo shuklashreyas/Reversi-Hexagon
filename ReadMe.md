@@ -13,7 +13,20 @@ Interface for the player
 -place piece method
 -boolean variable if its their turn
 -Enum class variable determining their color.
--Implement the movePiece move.
+-method to get the color of the player
 
+Interface for the Disc
+-color instance variable for the disc
+-toString and other standard methods
+
+Interface for the Board
+-startGame method(similar to Klondike)
+-isGameOver method(similar to Klondike)
+-getScore method(similar to klondike)
+-variable to keep track of whose turn it is 
+-method to get who is currently playing
+
+Interface for BoardView
+-toString method to get everything on the board
 
 
