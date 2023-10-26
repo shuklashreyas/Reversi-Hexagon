@@ -10,4 +10,15 @@ public interface IDisc {
    */
   String toString();
 
+  /**
+   * Sets the visibility of the disc.
+   */
+  void setColor(BasicReversi.Color newColor);
+
+  /**
+   * Gets the Color of the dics
+   */
+  BasicReversi.Color getColor();
+
+
 }

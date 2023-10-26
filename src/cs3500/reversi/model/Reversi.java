@@ -1,5 +1,6 @@
 package cs3500.reversi.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface Reversi {
@@ -18,7 +19,7 @@ public interface Reversi {
    * Method to get score of the game.
    * @return integer of score
    */
-  Integer getScore();
+  Tuple<Integer,Integer> getScore();
 
   /**
    * Takes in the proper player and places the move there
@@ -38,7 +39,14 @@ public interface Reversi {
    */
   BasicReversi.Color getTurn();
 
+  /**
+   * Gets the Array of Array representation of the board.
+   * @return a board.
+   */
   List<List<IDisc>> getBoard();
+
+  Integer getLength();
+
 
 
 
