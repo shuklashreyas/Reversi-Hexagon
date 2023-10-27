@@ -27,7 +27,7 @@ public class BasicReversi implements  Reversi{
   private List<IDisc> fillBoard(Integer rowLength){
     List<IDisc> row=new ArrayList<>();
     for(int i=0; i<rowLength; i++){
-      row.add(new IDisicImpl(Color.GRAY));
+      row.add(new IDiscImpl(Color.GRAY));
     }
     return row;
 
@@ -62,7 +62,7 @@ public class BasicReversi implements  Reversi{
     directions.add(new Tuple<>(1,0));
     directions.add(new Tuple<>(1,-1));
 
-   // board.get(center.getFirst()).set(center.getSecond(),new IDisicImpl(currColor));
+    // board.get(center.getFirst()).set(center.getSecond(),new IDisicImpl(currColor));
     while(numPieces>0){
       if(!directions.isEmpty()){
         Tuple<Integer,Integer> direction=directions.pop();
@@ -71,7 +71,7 @@ public class BasicReversi implements  Reversi{
         if(newRow< board.size()){
           List<IDisc> row=board.get(newRow);
           if(newCol<row.size()){
-            board.get(newRow).set(newCol,new IDisicImpl(currColor));
+            board.get(newRow).set(newCol,new IDiscImpl(currColor));
             numPieces--;
             if(currColor==Color.BLACK){
               currColor=Color.WHITE;
@@ -147,7 +147,7 @@ public class BasicReversi implements  Reversi{
     //gets the score of the game
     for(int i=0; i<this.board.size(); i++){
       List<IDisc> row=this.board.get(i);
-     // System.out.println(row);
+      // System.out.println(row);
       for(int j=0; j<row.size(); j++){
         IDisc disc=row.get(j);
 
@@ -202,7 +202,7 @@ public class BasicReversi implements  Reversi{
 
   @Override
   public List<List<IDisc>> getBoard(){
-   checkIsGameStarted();
+    checkIsGameStarted();
 
     return  this.board;
   }

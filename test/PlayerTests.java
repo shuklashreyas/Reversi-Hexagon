@@ -1,14 +1,9 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
 import cs3500.reversi.model.BasicReversi;
-import cs3500.reversi.model.IDisc;
-import cs3500.reversi.model.IDisicImpl;
 import cs3500.reversi.model.Tuple;
 import cs3500.reversi.view.TextualReversiView;
 
@@ -28,6 +23,14 @@ public class PlayerTests {
     Tuple<Integer,Integer> score=game.getScore();
     Assert.assertEquals(Optional.of(3).get(),score.getFirst());
     Assert.assertEquals(Optional.of(3).get(),score.getSecond());
+  }
+
+  @Test
+  public void getBoard(){
+    BasicReversi game=new BasicReversi(6);
+    game.startGame();
+    System.out.println(game.getBoard());
+
   }
 
 
