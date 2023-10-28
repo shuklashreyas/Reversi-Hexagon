@@ -7,7 +7,7 @@ import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.Tuple;
 import cs3500.reversi.view.TextualReversiView;
 
-public class PlayerTests {
+public class ModelTests {
 
   @Test
   public void startGameBoardWorks(){
