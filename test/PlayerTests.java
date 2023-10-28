@@ -12,6 +12,9 @@ import cs3500.reversi.model.IDisicImpl;
 import cs3500.reversi.model.Tuple;
 import cs3500.reversi.view.TextualReversiView;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 public class PlayerTests {
 
   @Test
@@ -26,10 +29,44 @@ public class PlayerTests {
     TextualReversiView view=new TextualReversiView(game);
     System.out.println(view.toString());
     Tuple<Integer,Integer> score=game.getScore();
-    Assert.assertEquals(Optional.of(3).get(),score.getFirst());
-    Assert.assertEquals(Optional.of(3).get(),score.getSecond());
+    assertEquals(Optional.of(3).get(),score.getFirst());
+    assertEquals(Optional.of(3).get(),score.getSecond());
   }
 
+  // make tests
+
+  @Test
+  public void testInvalidMoves() {
+    BasicReversi game = new BasicReversi(6);
+    game.startGame();
+
+    game.placeTile(0,0);
+    game.placeTile(0,0);
+
+  }
+
+//  @Test
+//  public void testValidMove() {
+//    BasicReversi game = new BasicReversi(6);
+//    game.startGame();
+//
+//    boolean moveResult = game.makeMove(/* coordinates of a valid move */);
+//
+//    assertTrue("Valid move was incorrectly rejected", moveResult);
+//
+//    // Check that the game state has updated correctly
+//  }
+//
+//  @Test
+//  public void testGameEnd() {
+//    BasicReversi game = new BasicReversi(6);
+//    // Set up a game state that represents an end-of-game condition
+//
+//    assertTrue("Game should be over", game.isGameOver());
+//
+//    // Check the winner if applicable
+//    assertEquals("Unexpected winner", expectedWinner, game.getWinner());
+//  }
 
 
 }

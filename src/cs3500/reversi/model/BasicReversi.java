@@ -173,10 +173,20 @@ public class BasicReversi implements  Reversi{
   public void placeTile(int row, int column) {
     checkIsGameStarted();
     Color currColor=this.getTurn();
-
-
-
-
+    //places the tile at the given row and column
+    //if the move is not valid, throw an exception
+    //if the move is valid, place the tile and change the turn
+    if(row<0 || row>=this.board.size()){
+      throw new IllegalArgumentException("invalid row");
+    }
+    if(column<0 || column>=this.board.get(row).size()){
+      throw new IllegalArgumentException("invalid column");
+    }
+    if(this.board.get(row).get(column).getColor()!=Color.GRAY){
+      throw new IllegalArgumentException("invalid move");
+    }
+    this.board.get(row).set(column,new IDisicImpl(currColor));
+    setTurn();
 
   }
 
