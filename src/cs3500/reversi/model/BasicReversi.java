@@ -16,6 +16,8 @@ public class BasicReversi implements  Reversi{
 
   private boolean isGameStarted;
 
+  private List<Tuple<Integer, Integer>> directions=new ArrayList<>();
+
   private List<List<IDisc>> board=new ArrayList<>();
 
   private void checkIsGameStarted(){
@@ -24,13 +26,21 @@ public class BasicReversi implements  Reversi{
     }
   }
 
+  private void initializeDirections(){
+    this.directions.add(new Tuple<>(0,1));
+    this.directions.add(new Tuple<>(-1,0));
+    this.directions.add(new Tuple<>(1,-1));
+    this.directions.add(new Tuple<>(1,0));
+    this.directions.add(new Tuple<>(-1,-1));
+    this.directions.add(new Tuple<>(0,-1));
+  }
+
   private List<IDisc> fillBoard(Integer rowLength){
     List<IDisc> row=new ArrayList<>();
     for(int i=0; i<rowLength; i++){
       row.add(new IDiscImpl(Color.GRAY));
     }
     return row;
-
   }
 
   private void constructBoard(){
@@ -53,42 +63,40 @@ public class BasicReversi implements  Reversi{
     Color currColor=Color.BLACK;
 
     Tuple<Integer, Integer> center=new Tuple<>(length-1,length-1);
-    Stack<Tuple<Integer,Integer>> directions=new Stack<>();
-    directions.add(new Tuple<>(0,1));
-    directions.add(new Tuple<>(0,-1));
-    directions.add(new Tuple<>(1,0));
-    directions.add(new Tuple<>(-1,0));
-    directions.add(new Tuple<>(-1,-1));
-    directions.add(new Tuple<>(1,-1));
 
-    //goes in the top right direction
-    directions.add(new Tuple<>(-2,0));
-    directions.add(new Tuple<>(-3,0));
-    directions.add(new Tuple<>(-4,0));
-    directions.add(new Tuple<>(-5,0));
+//    //goes in the top right direction
+//    directions.add(new Tuple<>(-2,0));
+//    directions.add(new Tuple<>(-3,0));
+//    directions.add(new Tuple<>(-4,0));
+//    directions.add(new Tuple<>(-5,0));
+//
+//    //goes in the right direction
+//    directions.add(new Tuple<>(0,2));
+//
+//    //goes in the left direction
+//    directions.add(new Tuple<>(0,-2));
+//
+//    //goes in the top left idrection
+//    directions.add(new Tuple<>(-2,-2));
+//    directions.add(new Tuple<>(-3,-3));
+//
+//    //goes in the bottom right direction
+//    directions.add(new Tuple<>(2,0));
+//
+//    //goes in bottom left direction
+//    directions.add(new Tuple<>(2,-2));
 
-    //goes in the right direction
-    directions.add(new Tuple<>(0,2));
+    //board.get(center.getFirst()).set(center.getSecond(),new IDiscImpl(Color.BLACK));
 
-    //goes in the left direction
-    directions.add(new Tuple<>(0,-2));
-
-    //goes in the top left idrection
-    directions.add(new Tuple<>(-2,-2));
-    directions.add(new Tuple<>(-3,-3));
-
-    //goes in the bottom right direction
-    directions.add(new Tuple<>(2,0));
-
-    //goes in bottom left direction
-    directions.add(new Tuple<>(2,-2));
-
-
-    board.get(center.getFirst()).set(center.getSecond(),new IDiscImpl(Color.BLACK));
-    for(Tuple<Integer,Integer> d:directions){
-      int row=d.getFirst()+ center.getFirst();
-      int column=d.getSecond()+center.getSecond();
-      this.board.get(row).set(column,new IDiscImpl(Color.WHITE));
+    while (numPieces > 0) {
+      if (!directions.isEmpty()) {
+        Tuple<Integer, Integer> direction = this.directions.remove(0);
+        int newRow = center.getFirst() + direction.getFirst();
+        int newCol = center.getSecond() + direction.getSecond();
+        board.get(newRow).set(newCol, new IDiscImpl(currColor));
+        numPieces--;
+        currColor = (currColor == Color.BLACK) ? Color.WHITE : Color.BLACK;
+      }
     }
   }
 
@@ -129,6 +137,7 @@ public class BasicReversi implements  Reversi{
     this.isGameStarted=true;
     //starts the game
     constructBoard();
+    initializeDirections();
     placeInitialPieces();
 
   }
@@ -172,6 +181,21 @@ public class BasicReversi implements  Reversi{
     }
 
     return new Tuple<>(whiteScore,blackScore);
+  }
+
+  private void dfs(int row, int column){
+    List<Tuple<Integer,Integer>> directions=new ArrayList<>();
+    directions.add(new Tuple<>(0,1));
+    directions.add(new Tuple<>(-1,0));
+    directions.add(new Tuple<>(1,-1));
+    directions.add(new Tuple<>(1,0));
+    directions.add(new Tuple<>(-1,-1));
+    directions.add(new Tuple<>(0,-1));
+
+
+
+
+
   }
   private void isValidMove(int row, int column){
     List<Tuple<Integer,Integer>> directions=new ArrayList<>();
