@@ -13,6 +13,4 @@ public class ViewTests {
     TextualReversiView view=new TextualReversiView(model);
     System.out.println(view.toString());
   }
-
-  // Make Tests for the view
 }

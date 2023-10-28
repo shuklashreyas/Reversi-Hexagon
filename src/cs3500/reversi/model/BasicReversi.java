@@ -27,7 +27,7 @@ public class BasicReversi implements  Reversi{
   private List<IDisc> fillBoard(Integer rowLength){
     List<IDisc> row=new ArrayList<>();
     for(int i=0; i<rowLength; i++){
-      row.add(new IDisicImpl(Color.GRAY));
+      row.add(new IDiscImpl(Color.GRAY));
     }
     return row;
 
@@ -54,33 +54,41 @@ public class BasicReversi implements  Reversi{
 
     Tuple<Integer, Integer> center=new Tuple<>(length-1,length-1);
     Stack<Tuple<Integer,Integer>> directions=new Stack<>();
-    directions.add(new Tuple<>(-1,-1));
-    directions.add(new Tuple<>(-1,0));
     directions.add(new Tuple<>(0,1));
     directions.add(new Tuple<>(0,-1));
-    directions.add(new Tuple<>(-1,-1));
     directions.add(new Tuple<>(1,0));
+    directions.add(new Tuple<>(-1,0));
+    directions.add(new Tuple<>(-1,-1));
     directions.add(new Tuple<>(1,-1));
 
-   // board.get(center.getFirst()).set(center.getSecond(),new IDisicImpl(currColor));
-    while(numPieces>0){
-      if(!directions.isEmpty()){
-        Tuple<Integer,Integer> direction=directions.pop();
-        int newRow=center.getFirst()+direction.getFirst();
-        int newCol=center.getSecond()+direction.getSecond();
-        if(newRow< board.size()){
-          List<IDisc> row=board.get(newRow);
-          if(newCol<row.size()){
-            board.get(newRow).set(newCol,new IDisicImpl(currColor));
-            numPieces--;
-            if(currColor==Color.BLACK){
-              currColor=Color.WHITE;
-            }else{
-              currColor=Color.BLACK;
-            }
-          }
-        }
-      }
+    //goes in the top right direction
+    directions.add(new Tuple<>(-2,0));
+    directions.add(new Tuple<>(-3,0));
+    directions.add(new Tuple<>(-4,0));
+    directions.add(new Tuple<>(-5,0));
+
+    //goes in the right direction
+    directions.add(new Tuple<>(0,2));
+
+    //goes in the left direction
+    directions.add(new Tuple<>(0,-2));
+
+    //goes in the top left idrection
+    directions.add(new Tuple<>(-2,-2));
+    directions.add(new Tuple<>(-3,-3));
+
+    //goes in the bottom right direction
+    directions.add(new Tuple<>(2,0));
+
+    //goes in bottom left direction
+    directions.add(new Tuple<>(2,-2));
+
+
+    board.get(center.getFirst()).set(center.getSecond(),new IDiscImpl(Color.BLACK));
+    for(Tuple<Integer,Integer> d:directions){
+      int row=d.getFirst()+ center.getFirst();
+      int column=d.getSecond()+center.getSecond();
+      this.board.get(row).set(column,new IDiscImpl(Color.WHITE));
     }
   }
 
@@ -147,7 +155,7 @@ public class BasicReversi implements  Reversi{
     //gets the score of the game
     for(int i=0; i<this.board.size(); i++){
       List<IDisc> row=this.board.get(i);
-     // System.out.println(row);
+      // System.out.println(row);
       for(int j=0; j<row.size(); j++){
         IDisc disc=row.get(j);
 
@@ -173,20 +181,10 @@ public class BasicReversi implements  Reversi{
   public void placeTile(int row, int column) {
     checkIsGameStarted();
     Color currColor=this.getTurn();
-    //places the tile at the given row and column
-    //if the move is not valid, throw an exception
-    //if the move is valid, place the tile and change the turn
-    if(row<0 || row>=this.board.size()){
-      throw new IllegalArgumentException("invalid row");
-    }
-    if(column<0 || column>=this.board.get(row).size()){
-      throw new IllegalArgumentException("invalid column");
-    }
-    if(this.board.get(row).get(column).getColor()!=Color.GRAY){
-      throw new IllegalArgumentException("invalid move");
-    }
-    this.board.get(row).set(column,new IDisicImpl(currColor));
-    setTurn();
+
+
+
+
 
   }
 
@@ -212,7 +210,7 @@ public class BasicReversi implements  Reversi{
 
   @Override
   public List<List<IDisc>> getBoard(){
-   checkIsGameStarted();
+    checkIsGameStarted();
 
     return  this.board;
   }

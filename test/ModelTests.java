@@ -8,14 +8,14 @@ import java.util.Optional;
 
 import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.IDisc;
-import cs3500.reversi.model.IDisicImpl;
+import cs3500.reversi.model.IDiscImpl;
 import cs3500.reversi.model.Tuple;
 import cs3500.reversi.view.TextualReversiView;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class PlayerTests {
+public class ModelTests {
 
   @Test
   public void startGameBoardWorks(){

@@ -1,9 +1,9 @@
 package cs3500.reversi.model;
 
-public class IDisicImpl implements IDisc {
+public class IDiscImpl implements IDisc {
   private BasicReversi.Color color;
 
-  public IDisicImpl( BasicReversi.Color color){
+  public IDiscImpl(BasicReversi.Color color){
     this.color=color;
   }
 
