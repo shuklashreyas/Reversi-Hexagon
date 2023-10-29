@@ -102,9 +102,6 @@ public class BasicReversi implements  Reversi{
 
 
 
-
-
-
   private void setTurn(){
     //helper method to set the current turn to the nect whenever a move ius made
     if(this.turn==Color.BLACK){
@@ -116,7 +113,6 @@ public class BasicReversi implements  Reversi{
   }
 
 
-
   public BasicReversi(int length){
     if(length<=0){
       throw new IllegalArgumentException("invlaid input");
@@ -125,8 +121,6 @@ public class BasicReversi implements  Reversi{
     this.length=length;
     this.turn=Color.BLACK;
   }
-
-
 
 
   @Override
@@ -145,11 +139,64 @@ public class BasicReversi implements  Reversi{
   @Override
   public boolean isGameOver() {
     checkIsGameStarted();
-    //checks if the game is over
-    //game is over when either all the tiles are filled or there are no playable moves
+    boolean emptySpaceFound = false;
+    for (List<IDisc> row : board) {
+      for (IDisc disc : row) {
+        if (disc.getColor() == Color.GRAY) { // Assuming GRAY means empty
+          emptySpaceFound = true;
+          break; // No need to check the rest of this row
+        }
+      }
+    }
+
+    if (emptySpaceFound) {
+      // If there's an empty space, check if either player can make a move
+      return !hasValidMove(Color.BLACK) && !hasValidMove(Color.WHITE);
+    } else {
+      // Board is full, game is over
+      return true;
+    }
+  }
 
 
+  // Helper method to check if a player has any valid moves
+  private boolean hasValidMove(Color playerColor) {
+    for (int row = 0; row < board.size(); row++) {
+      for (int col = 0; col < board.get(row).size(); col++) {
+        if (isValidMove(playerColor, row, col)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 
+  private boolean isValidMove(Color playerColor, int row, int col) {
+    if (board.get(row).get(col).getColor() != Color.GRAY) {
+      return false;
+    }
+    Color opponentColor;
+    if (playerColor == Color.BLACK) {
+      opponentColor = Color.WHITE;
+    } else {
+      opponentColor = Color.BLACK;
+    }
+
+    for (Tuple<Integer, Integer> direction : directions) {
+      int newRow = row + direction.getFirst();
+      int newCol = col + direction.getSecond();
+      boolean hasOpponentDisc = false;
+
+      while (isValidCell(newRow, newCol) && board.get(newRow).get(newCol).getColor() == opponentColor) {
+        newRow += direction.getFirst();
+        newCol += direction.getSecond();
+        hasOpponentDisc = true;
+      }
+
+      if (hasOpponentDisc && isValidCell(newRow, newCol) && board.get(newRow).get(newCol).getColor() == playerColor) {
+        return true;
+      }
+    }
 
     return false;
   }
@@ -197,8 +244,40 @@ public class BasicReversi implements  Reversi{
 
 
   }
-  private void isValidMove(int row, int column){
-    List<Tuple<Integer,Integer>> directions=new ArrayList<>();
+  private boolean isValidMove(int row, int column){
+    List<Tuple<Integer,Integer>> directions =new ArrayList<>();
+
+    if (board.get(row).get(column).getColor() != Color.GRAY) {
+      return false;
+    }
+    Color opponentColor;
+    if (turn == Color.BLACK) {
+      opponentColor = Color.WHITE;
+    } else {
+      opponentColor = Color.BLACK;
+    }
+
+    for (Tuple<Integer, Integer> direction : directions) {
+      int newRow = row + direction.getFirst();
+      int newCol = column + direction.getSecond();
+      boolean hasOpponentDisc = false;
+
+      while (isValidCell(newRow, newCol) && board.get(newRow).get(newCol).getColor() == opponentColor) {
+        newRow += direction.getFirst();
+        newCol += direction.getSecond();
+        hasOpponentDisc = true;
+      }
+
+      if (hasOpponentDisc && isValidCell(newRow, newCol) && board.get(newRow).get(newCol).getColor() == turn) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private boolean isValidCell(int row, int column) {
+    return row >= 0 && row < board.size() && column >= 0 && column < board.get(row).size();
 
   }
   @Override
